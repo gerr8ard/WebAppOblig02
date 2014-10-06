@@ -1,0 +1,38 @@
+﻿@model IEnumerable<BlogCeBlogCentralVersion2ntral.Models.Comment>
+
+@{
+    int BlogPostId = Convert.ToInt32(ViewData["BlogPostId"]);
+    int BloggId = Convert.ToInt32(ViewData["BloggId"]);
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CommentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CommentPost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datecreated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CommentPost)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datecreated)
+        </td>
+        <td>
+            @Html.ActionLink("Slett kommentar", "DeleteComment", new { Commentid = item.CommentId, BlogPostId = BlogPostId, BloggId = BloggId })
+        </td>
+    </tr>
+}
+
+</table>

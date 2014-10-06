@@ -1,0 +1,60 @@
+﻿@model BlogCentralVersion2.Models.BlogPost
+
+@{
+    ViewBag.Title = "Detaljer";
+}
+
+
+<div class="jumbotron">
+    <h1>@Model.BlogPostTitle</h1>
+    <p>
+
+
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.BlogPostAuthor)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BlogPostAuthor)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.BlogPostPost)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.BlogPostPost)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+
+        </dl>
+    </p>
+        @Html.ActionLink("Rediger innlegg", "Edit", new { BlogPostid = Model.BlogPostId, BloggId = Model.Blog.BlogId }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Tilbake til innlegg", "Index", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-primary" })
+        <hr />
+  
+       @if (Model.isOpen)
+       {<p>Kommentarer på innlegget @Model.BlogPostTitle</p>
+        @Html.Partial("_CommentListView", Model.Comments, new ViewDataDictionary { { "BlogPostId", ViewBag.BlogPostId }, { "BloggId", ViewBag.BloggId } })
+           <p>Legg igjen en kommentar</p>
+        @Html.Partial("_Comments", new BlogCentralVersion2.Models.Comment(), new ViewDataDictionary { { "BlogPostId", ViewBag.BlogPostId }, { "BloggId", ViewBag.BloggId } })
+       }
+
+
+
+
+    
+</div>
+
+
+
+
+

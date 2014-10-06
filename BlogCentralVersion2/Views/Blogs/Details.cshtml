@@ -1,0 +1,41 @@
+﻿@model BlogCentralVersion2.Models.Blog
+
+@{
+    ViewBag.Title = "Detaljer";
+}
+
+<h2>Detaljer om bloggen <strong>@Model.BlogTitle</strong></h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BlogTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BlogTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BlogOwner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BlogOwner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Rediger blogg", "Edit", new { id = Model.BlogId }, new { @class = "btn btn-success" })
+    @Html.ActionLink("Tilbake til oversikt", "Index", "Blogs", null, new { @class = "btn btn-primary" })
+</p>

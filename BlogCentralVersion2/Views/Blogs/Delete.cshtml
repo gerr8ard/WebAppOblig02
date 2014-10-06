@@ -1,0 +1,55 @@
+﻿@model BlogCentralVersion2.Models.Blog
+
+@{
+    ViewBag.Title = "Slette";
+}
+
+<h2>Slette blogg</h2>
+
+<h3>Er du sikker på at du vil slette bloggen <strong>@Model.BlogTitle</strong> ?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal form-group">
+        <dt>
+            @Html.DisplayNameFor(model => model.BlogTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BlogTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BlogOwner)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BlogOwner)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+
+    </dl>
+
+    <div class="form-group">
+        
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Slett blogg" class="btn btn-success" />
+                    @Html.ActionLink("Tilbake til oversikt", "Index", "Blogs", null, new { @class = "btn btn-primary" })
+                </div>
+            }
+    </div>
+
+   
+
+</div>

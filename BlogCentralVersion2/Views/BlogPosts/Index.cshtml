@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BlogCentralVersion2.Models.BlogPost>
+
+@{
+    ViewBag.Title = "Oversikt";
+}
+
+<h2>Oversikt over innlegg</h2>
+
+<p>
+    @Html.ActionLink("Lag nytt innlegg", "Create", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-success" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogPostTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogPostAuthor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogPostPost)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.BlogPostTitle, "Details", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BlogPostAuthor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BlogPostPost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.ActionLink("Rediger", "Edit", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)|
+                
+                @Html.ActionLink("Slett", "Delete", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)
+            </td>
+        </tr>
+    }
+
+</table>
+

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BlogCentralVersion2.Models.Blog>
+
+@{
+    ViewBag.Title = "Oversikt";
+}
+
+<h2>Oversikt over blogger</h2>
+
+<p>
+    @Html.ActionLink("Opprett ny blogg", "Create", null,  new {@class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BlogOwner)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink(item.BlogTitle, "Index", "BlogPosts", new { BloggId = item.BlogId}, null)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BlogOwner)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.ActionLink("Rediger", "Edit", new { id=item.BlogId }) |
+            @Html.ActionLink("Detaljer", "Details", new { id=item.BlogId }) |
+            @Html.ActionLink("Slett", "Delete", new { id=item.BlogId })
+        </td>
+    </tr>
+}
+
+</table>
