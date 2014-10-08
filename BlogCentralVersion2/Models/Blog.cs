@@ -19,5 +19,6 @@ namespace BlogCentralVersion2.Models
         public DateTime DateCreated { get; set; }
 
         public virtual List<BlogPost> Posts { get; set; }
+        public virtual ApplicationUser OwnerOfBlog { get; set; }//Setter eier på bloggen.
     }
 }

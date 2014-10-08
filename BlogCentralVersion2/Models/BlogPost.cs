@@ -23,5 +23,6 @@ namespace BlogCentralVersion2.Models
 
         public virtual Blog Blog { get; set; }
         public virtual List<Comment> Comments { get; set; }
+        public virtual ApplicationUser OwnerOfBlogPost { get; set; }//Setter eier på innlegget
     }
 }

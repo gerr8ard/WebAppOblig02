@@ -30,7 +30,6 @@ namespace BlogCentralVersion2.Controllers
         public ActionResult Index(int BloggId)
         {
             ViewBag.BloggId = BloggId;
-            //var blogPosts = db.BlogPosts.Where(x => x.Blog.BlogId == BloggId).ToList<BlogPost>();
             var blogPost = repo.getAllBlogPosts(BloggId);
             return View(blogPost);
         }

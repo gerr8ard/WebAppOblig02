@@ -8,6 +8,12 @@ namespace BlogCentralVersion2.Models
     public class BloggSentralenRepository : IBloggSentralenRepository
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        /// <summary>
+        /// Sletter valgt kommentar fra databasen.
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteComment(int? id)
         {
             Comment comment = db.Comments.Find(id);
@@ -15,11 +21,20 @@ namespace BlogCentralVersion2.Models
             db.SaveChanges();
         }
 
+        /// <summary>
+        /// Henter alle blogger fra databasen
+        /// </summary>
+        /// <returns>En oversikt over alle blogger i databasen</returns>
         public IEnumerable<Blog> getAllBlogs()
         {
             return db.Blogs;
         }
 
+        /// <summary>
+        /// Henter ut alle innlegg i en blogg vha en BloggId.
+        /// </summary>
+        /// <param name="BloggId"></param>
+        /// <returns>En oversikt over alle innlegg tilknyttet en gitt blogg vha BloggId</returns>
         public ICollection<BlogPost> getAllBlogPosts(int? BloggId)
         {
             return db.BlogPosts
@@ -28,12 +43,22 @@ namespace BlogCentralVersion2.Models
                 .ToList<BlogPost>();
         }
         
+        /// <summary>
+        /// Henter ut en gitt blogg vha BloggId. Brukes i forbindelse med testing.
+        /// </summary>
+        /// <param name="BloggId"></param>
+        /// <returns></returns>
         public Blog getBlog(int? BloggId)
         {
             var blog = db.Blogs.Find(BloggId);
             return blog;
         }
 
+        /// <summary>
+        /// Henter ut et gitt innlegg vha BloggId. Brukes i forbindelse med testing.
+        /// </summary>
+        /// <param name="BloggId"></param>
+        /// <returns></returns>
         public BlogPost getBlogpost(int? BloggId)
         {
             return db.BlogPosts

@@ -64,6 +64,7 @@ namespace BlogCentralVersion2.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 blog.DateCreated = DateTime.Now;
                 db.Blogs.Add(blog);
                 db.SaveChanges();

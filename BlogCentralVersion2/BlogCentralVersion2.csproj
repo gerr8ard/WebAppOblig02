@@ -183,6 +183,10 @@
     <Compile Include="Migrations\201410061256236_first.Designer.cs">
       <DependentUpon>201410061256236_first.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410071901069_lagt til eierfelt i db.cs" />
+    <Compile Include="Migrations\201410071901069_lagt til eierfelt i db.Designer.cs">
+      <DependentUpon>201410071901069_lagt til eierfelt i db.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -196,6 +200,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Oblig2_500738_database.mdf" />
+    <Content Include="App_Data\Oblig2_500738_database_log.ldf">
+      <DependentUpon>Oblig2_500738_database.mdf</DependentUpon>
+    </Content>
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\BlogCentralVersion2.dll" />
     <Content Include="bin\BlogCentralVersion2.pdb" />
@@ -299,9 +307,7 @@
     <Content Include="Views\Shared\_CommentListView.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -312,6 +318,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201410061256236_first.resx">
       <DependentUpon>201410061256236_first.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410071901069_lagt til eierfelt i db.resx">
+      <DependentUpon>201410071901069_lagt til eierfelt i db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -21,5 +21,6 @@ namespace BlogCentralVersion2.Models
         [Display(Name = "Vis kommentar")]
 
         public virtual BlogPost BlogPost { get; set; }
+        public virtual ApplicationUser OwnerOfComment { get; set; }//Setter eier på kommentar
     }
 }
