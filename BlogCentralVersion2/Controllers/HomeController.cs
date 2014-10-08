@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace BlogCentralVersion2.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
         private string name = "Pål Gerrard Gaare-Skogsrud";

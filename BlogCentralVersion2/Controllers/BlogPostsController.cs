@@ -32,6 +32,7 @@ namespace BlogCentralVersion2.Controllers
         // GET: BlogPosts
         public ActionResult Index(int BloggId)
         {
+            ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
             ViewBag.BloggId = BloggId;
             var blogPost = repo.getAllBlogPosts(BloggId);
             return View(blogPost);
@@ -40,6 +41,7 @@ namespace BlogCentralVersion2.Controllers
         // GET: BlogPosts/Details/5
         public ActionResult Details(int? BlogPostId, int BloggId)
         {
+            ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
             ViewBag.BloggId = BloggId;
             ViewBag.BlogPostId = BlogPostId;
             if (BlogPostId == null)

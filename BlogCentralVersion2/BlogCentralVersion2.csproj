@@ -16,7 +16,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -191,6 +191,10 @@
     <Compile Include="Migrations\201410081538500_endringIIdentityModels.Designer.cs">
       <DependentUpon>201410081538500_endringIIdentityModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410082018556_fjernet noe.cs" />
+    <Compile Include="Migrations\201410082018556_fjernet noe.Designer.cs">
+      <DependentUpon>201410082018556_fjernet noe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -329,6 +333,9 @@
     <EmbeddedResource Include="Migrations\201410081538500_endringIIdentityModels.resx">
       <DependentUpon>201410081538500_endringIIdentityModels.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410082018556_fjernet noe.resx">
+      <DependentUpon>201410082018556_fjernet noe.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -348,7 +355,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>13487</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:13487/</IISUrl>
+          <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

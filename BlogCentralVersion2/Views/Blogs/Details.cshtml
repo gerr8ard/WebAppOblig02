@@ -36,6 +36,11 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Rediger blogg", "Edit", new { id = Model.BlogId }, new { @class = "btn btn-success" })
+    @*Sjekker om bruker er logget inn for å få ekstra valgmuligheter*@
+    @if (ViewBag.isLoggedIn)
+    {
+        @Html.ActionLink("Rediger blogg", "Edit", new { id = Model.BlogId }, new { @class = "btn btn-success" })
+    }
+    
     @Html.ActionLink("Tilbake til oversikt", "Index", "Blogs", null, new { @class = "btn btn-primary" })
 </p>
