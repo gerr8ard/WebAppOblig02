@@ -7,6 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BlogCentralVersion2.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BlogCentralVersion2.Controllers
 {
@@ -51,6 +54,7 @@ namespace BlogCentralVersion2.Controllers
             return View(blogPost);
         }
 
+        [Authorize]
         // GET: BlogPosts/Create
         public ActionResult Create(int BloggId)
         {
@@ -65,6 +69,10 @@ namespace BlogCentralVersion2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BlogPostId,BlogPostTitle,BlogPostAuthor,BlogPostPost,DateCreated, isOpen")] BlogPost blogPost, int BloggId)
         {
+
+            var user = db.Users.Find(User.Identity.GetUserId());
+            blogPost.OwnerOfBlogPost = user;
+
             if (ModelState.IsValid)
             {
                 
@@ -80,6 +88,7 @@ namespace BlogCentralVersion2.Controllers
             return View(blogPost);
         }
 
+        [Authorize]
         // GET: BlogPosts/Edit/5
         public ActionResult Edit(int? BlogPostId, int BloggId)
         {
@@ -114,6 +123,7 @@ namespace BlogCentralVersion2.Controllers
             return View(blogPost);
         }
 
+        [Authorize]
         // GET: BlogPosts/Delete/5
         public ActionResult Delete(int? BlogPostId, int BloggId)
         {
@@ -141,6 +151,7 @@ namespace BlogCentralVersion2.Controllers
             return RedirectToAction("Index", new { BloggId = BloggId });
         }
 
+        [Authorize]
         public ActionResult Comment(int BlogPostId, int BloggId)
         {
             ViewBag.BlogPostId = BlogPostId;
@@ -149,7 +160,7 @@ namespace BlogCentralVersion2.Controllers
             return View(comment);
         }
 
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment([Bind(Include = "CommentId,CommentName,CommentPost,DateCreated")] Comment comment, int BloggId, int BlogPostId)
@@ -157,6 +168,8 @@ namespace BlogCentralVersion2.Controllers
 
             ViewBag.BloggId = BloggId;
             ViewBag.BlogPostId = BlogPostId;
+            var user = db.Users.Find(User.Identity.GetUserId());
+            comment.OwnerOfComment = user;
 
             if (ModelState.IsValid)
             {
@@ -175,7 +188,7 @@ namespace BlogCentralVersion2.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult DeleteComment(int BloggId, int BlogPostId, int CommentId)
         {
             ViewBag.BloggId = BloggId;

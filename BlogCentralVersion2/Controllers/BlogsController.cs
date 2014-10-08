@@ -7,9 +7,13 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BlogCentralVersion2.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BlogCentralVersion2.Controllers
 {
+    
     public class BlogsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
@@ -47,8 +51,10 @@ namespace BlogCentralVersion2.Controllers
             }
             return View(blog);
         }
+    
 
         // GET: Blogs/Create
+        [Authorize]
         public ActionResult Create()
         {
 
@@ -62,6 +68,9 @@ namespace BlogCentralVersion2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BlogId,BlogTitle,BlogOwner,DateCreated")] Blog blog)
         {
+            var user = db.Users.Find(User.Identity.GetUserId());
+            blog.OwnerOfBlog = user;
+                
             if (ModelState.IsValid)
             {
                 
@@ -75,6 +84,7 @@ namespace BlogCentralVersion2.Controllers
         }
 
         // GET: Blogs/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -106,6 +116,7 @@ namespace BlogCentralVersion2.Controllers
         }
 
         // GET: Blogs/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)

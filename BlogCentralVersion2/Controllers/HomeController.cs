@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace BlogCentralVersion2.Controllers
 {
@@ -11,6 +14,7 @@ namespace BlogCentralVersion2.Controllers
         private string name = "Pål Gerrard Gaare-Skogsrud";
         public ActionResult Index()
         {
+            ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;
             return View();
         }
 

@@ -49,16 +49,29 @@ namespace BlogCentralVersion2.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(Name = "Epost")]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Passord")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Required]
+        [Display(Name = "Brukernavn")]
+        public string CommentUserName { get; set; }
+
+        [Required]
+        [Display(Name = "Fornavn")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Etternavn")]
+        public string LastName { get; set; }
+
+
+        [Display(Name = "Husk meg?")]
         public bool RememberMe { get; set; }
     }
 
@@ -68,6 +81,18 @@ namespace BlogCentralVersion2.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Brukernavn")]
+        public string CommentUserName { get; set; }
+
+        [Required]
+        [Display(Name = "Fornavn")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Etternavn")]
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

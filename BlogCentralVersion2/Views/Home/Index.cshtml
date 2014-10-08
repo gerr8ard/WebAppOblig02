@@ -6,8 +6,12 @@
     <h1>Blogg Sentralen</h1>
     <p class="lead">Hei og velkommen til Blogg Sentralen. Her kan du opprette din egen blogg, se på andres blogger og kommentere innlegg.</p>
     <p>
+        @if(ViewBag.isLoggedIn)
+        {
+            @Html.ActionLink("Opprett ny blogg ", "Create", "Blogs", null, new { @class = "btn btn-success" })@*Knapp som ruter bruker fra startsiden til opprett blogg*@
+        }
+        
 
-        @Html.ActionLink("Opprett ny blogg ", "Create", "Blogs", null, new { @class = "btn btn-success" })@*Knapp som ruter bruker fra startsiden til opprett blogg*@
     </p>
 </div>
 
