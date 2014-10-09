@@ -7,7 +7,13 @@
 <h2>Oversikt over innlegg</h2>
 
 <p>
-    @Html.ActionLink("Lag nytt innlegg", "Create", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-success" })
+
+    @*Sjekker om bruker er logget inn for å vise knapp*@
+    @if (ViewBag.isLoggedIn)
+    {
+        @Html.ActionLink("Lag nytt innlegg", "Create", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-success" })
+    }
+
 </p>
 
 <table class="table">
@@ -44,10 +50,17 @@
                 @Html.DisplayFor(modelItem => item.DateCreated)
             </td>
             <td>
-                @Html.ActionLink("Rediger", "Edit", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)|
-                
-                @Html.ActionLink("Slett", "Delete", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)
+
+                @*Sjekker om bruker er logget inn for å vise ekstra editeringsmuligheter*@
+                @if (ViewBag.isLoggedIn)
+                {
+                    @Html.ActionLink("Rediger", "Edit", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)@:|
+
+                    @Html.ActionLink("Slett", "Delete", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)
+                }
+
             </td>
+
         </tr>
     }
 

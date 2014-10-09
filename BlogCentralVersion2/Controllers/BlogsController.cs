@@ -33,6 +33,7 @@ namespace BlogCentralVersion2.Controllers
         // GET: Blogs
         public ActionResult Index()
         {
+            ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
             var blogs = repo.getAllBlogs();
             return View(blogs);
         }
@@ -40,6 +41,7 @@ namespace BlogCentralVersion2.Controllers
         // GET: Blogs/Details/5
         public ActionResult Details(int? id)
         {
+            ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -57,7 +59,7 @@ namespace BlogCentralVersion2.Controllers
         [Authorize]
         public ActionResult Create()
         {
-
+            
             return View();
         }
 

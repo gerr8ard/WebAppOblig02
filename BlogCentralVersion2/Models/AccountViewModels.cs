@@ -58,19 +58,6 @@ namespace BlogCentralVersion2.Models
         [Display(Name = "Passord")]
         public string Password { get; set; }
 
-        [Required]
-        [Display(Name = "Brukernavn")]
-        public string CommentUserName { get; set; }
-
-        [Required]
-        [Display(Name = "Fornavn")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Etternavn")]
-        public string LastName { get; set; }
-
-
         [Display(Name = "Husk meg?")]
         public bool RememberMe { get; set; }
     }
@@ -79,7 +66,7 @@ namespace BlogCentralVersion2.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "Epost")]
         public string Email { get; set; }
 
         [Required]
@@ -95,14 +82,14 @@ namespace BlogCentralVersion2.Models
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} må minst inneholde {2} tegn.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Passord")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Bekreft passord")]
+        [Compare("Password", ErrorMessage = "Passordene er ulike.")]
         public string ConfirmPassword { get; set; }
     }
 

@@ -54,15 +54,15 @@ namespace BlogCentralVersion2
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "1492720950987915",
+               appSecret: "a9e0204335d4f1d4819dfd7a9d7059e6");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "461150719491-kp7tgpvoga195fcsfcn15b2dm2bajkp7.apps.googleusercontent.com",
+                ClientSecret = "hvXI-tZynpkCoKMmWeTh8tWR"
+            });
         }
     }
 }
