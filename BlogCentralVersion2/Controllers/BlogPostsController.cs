@@ -33,7 +33,12 @@ namespace BlogCentralVersion2.Controllers
         public ActionResult Index(int BloggId)
         {
             ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
+            //ViewBag.user = HttpContext.User.Identity.Name;
+
+            var blog = db.Blogs.Find(BloggId);
+            ViewBag.userName = blog.OwnerOfBlog.UserName;//Sender med brukernavn for å sjekke om bruker er eier for et objekt
             ViewBag.BloggId = BloggId;
+
             var blogPost = repo.getAllBlogPosts(BloggId);
             return View(blogPost);
         }

@@ -36,8 +36,8 @@
     </dl>
 </div>
 <p>
-    @*Sjekker om bruker er logget inn for å få ekstra valgmuligheter*@
-    @if (ViewBag.isLoggedIn)
+    @*Sjekker om bruker er eier av objektet for å få ekstra valgmuligheter*@
+    @if (ViewBag.userName == User.Identity.Name)
     {
         @Html.ActionLink("Rediger blogg", "Edit", new { id = Model.BlogId }, new { @class = "btn btn-success" })
     }

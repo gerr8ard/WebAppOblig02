@@ -47,7 +47,7 @@
             <td>
 
                 @*Sjekker om bruker er logget inn for å vise ekstra editeringsmuligheter*@
-                @if (ViewBag.isLoggedIn)
+                @if (ViewBag.isLoggedIn && item.OwnerOfBlog.UserName == User.Identity.Name)
                 {
                     @Html.ActionLink("Rediger", "Edit", new { id = item.BlogId }) @:|
                     @Html.ActionLink("Slett", "Delete", new { id = item.BlogId }) @:|

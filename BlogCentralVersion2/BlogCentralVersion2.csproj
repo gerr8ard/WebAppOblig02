@@ -314,6 +314,7 @@
     <Content Include="Views\Blogs\Index.cshtml" />
     <Content Include="Views\Shared\_CommentListView.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
+    <Content Include="Views\Shared\NoAccess.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
