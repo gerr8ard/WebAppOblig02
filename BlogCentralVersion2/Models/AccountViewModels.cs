@@ -8,6 +8,18 @@ namespace BlogCentralVersion2.Models
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Brukernavn")]
+        public string CommentUserName { get; set; }
+
+        [Required]
+        [Display(Name = "Fornavn")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Etternavn")]
+        public string LastName { get; set; }
     }
 
     public class ExternalLoginListViewModel

@@ -47,6 +47,7 @@ namespace BlogCentralVersion2.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Blog blog = db.Blogs.Find(id);
+            ViewBag.userName = blog.OwnerOfBlog.UserName;//Sender med brukernavn for å sjekke om bruker er eier for et objekt
             if (blog == null)
             {
                 return HttpNotFound();
@@ -129,6 +130,12 @@ namespace BlogCentralVersion2.Controllers
             if (blog == null)
             {
                 return HttpNotFound();
+            }
+
+            //Sjekker om bruker har tilgang på objektet han forespør.
+            if (User.Identity.Name != blog.OwnerOfBlog.UserName)
+            {
+                return View("NoAccess");
             }
             return View(blog);
         }
