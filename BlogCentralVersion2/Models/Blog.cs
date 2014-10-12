@@ -8,6 +8,7 @@ namespace BlogCentralVersion2.Models
 {
     public class Blog
     {
+        
         public int BlogId { get; set; }
         [Required(ErrorMessage = "Vennligst tast inn ett navn")]
         [Display(Name = "Blogg Navn")]

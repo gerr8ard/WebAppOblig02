@@ -8,6 +8,7 @@ namespace BlogCentralVersion2.Models
 {
     public class Comment
     {
+       
         public int CommentId { get; set; }
         [Display(Name = "Kommentert av")]
         public String CommentName { get; set; }

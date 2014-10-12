@@ -8,6 +8,7 @@ namespace BlogCentralVersion2.Models
 {
     public class BlogPost
     {
+       
         public int BlogPostId { get; set; }
         [Required]
         [Display(Name = "Tittel")]
