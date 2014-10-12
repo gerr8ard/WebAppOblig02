@@ -195,6 +195,18 @@
     <Compile Include="Migrations\201410082018556_fjernet noe.Designer.cs">
       <DependentUpon>201410082018556_fjernet noe.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410101406030_fjernetlitt.cs" />
+    <Compile Include="Migrations\201410101406030_fjernetlitt.Designer.cs">
+      <DependentUpon>201410101406030_fjernetlitt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410101419559_lagtTilReqPåBlogPost.cs" />
+    <Compile Include="Migrations\201410101419559_lagtTilReqPåBlogPost.Designer.cs">
+      <DependentUpon>201410101419559_lagtTilReqPåBlogPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410101430396_fjernetReqIComment.cs" />
+    <Compile Include="Migrations\201410101430396_fjernetReqIComment.Designer.cs">
+      <DependentUpon>201410101430396_fjernetReqIComment.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Blog.cs" />
@@ -336,6 +348,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410082018556_fjernet noe.resx">
       <DependentUpon>201410082018556_fjernet noe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410101406030_fjernetlitt.resx">
+      <DependentUpon>201410101406030_fjernetlitt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410101419559_lagtTilReqPåBlogPost.resx">
+      <DependentUpon>201410101419559_lagtTilReqPåBlogPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410101430396_fjernetReqIComment.resx">
+      <DependentUpon>201410101430396_fjernetReqIComment.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

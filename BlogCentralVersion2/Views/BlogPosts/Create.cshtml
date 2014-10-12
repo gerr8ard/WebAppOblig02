@@ -21,15 +21,15 @@
                 @Html.ValidationMessageFor(model => model.BlogPostTitle, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BlogPostAuthor, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BlogPostAuthor, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BlogPostAuthor, "", new { @class = "text-danger" })
-            </div>
+        @*
+    <div class="form-group">
+        @Html.LabelFor(model => model.BlogPostAuthor, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BlogPostAuthor, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BlogPostAuthor, "", new { @class = "text-danger" })
         </div>
-
+    </div>
+        *@
         <div class="form-group">
             @Html.LabelFor(model => model.BlogPostPost, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

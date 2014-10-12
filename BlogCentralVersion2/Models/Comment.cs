@@ -9,8 +9,7 @@ namespace BlogCentralVersion2.Models
     public class Comment
     {
         public int CommentId { get; set; }
-        [Required(ErrorMessage = "Vennligst tast inn et navn!")]
-        [Display(Name = "Skrevet av")]
+        [Display(Name = "Kommentert av")]
         public String CommentName { get; set; }
         [Required(ErrorMessage = "Vennligst tast inn en kommentar!")]
         [Display(Name = "Kommentar")]
