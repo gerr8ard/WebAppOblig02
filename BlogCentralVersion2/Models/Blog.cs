@@ -8,12 +8,12 @@ namespace BlogCentralVersion2.Models
 {
     public class Blog
     {
+        
         public int BlogId { get; set; }
         [Required(ErrorMessage = "Vennligst tast inn ett navn")]
         [Display(Name = "Blogg Navn")]
         public String BlogTitle { get; set; }
-        [Required(ErrorMessage = "Vennligst tast inn ditt navn")]
-        [Display(Name = "Laget av")]
+        [Display(Name = "Eier av blogg")]
         public String BlogOwner { get; set; }
         [Display(Name = "Opprettet")]
         public DateTime DateCreated { get; set; }

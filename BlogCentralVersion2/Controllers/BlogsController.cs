@@ -71,12 +71,13 @@ namespace BlogCentralVersion2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BlogId,BlogTitle,BlogOwner,DateCreated")] Blog blog)
         {
+            
             var user = db.Users.Find(User.Identity.GetUserId());
             blog.OwnerOfBlog = user;
-                
+            var username = blog.OwnerOfBlog.CommentUserName;//Henter ut brukernavnet til brukeren.    
             if (ModelState.IsValid)
             {
-                
+                blog.BlogOwner = username;//Setter forfatter av bloggen automatisk til å være lik brukernavnet til brukeren.
                 blog.DateCreated = DateTime.Now;
                 db.Blogs.Add(blog);
                 db.SaveChanges();
@@ -98,6 +99,11 @@ namespace BlogCentralVersion2.Controllers
             if (blog == null)
             {
                 return HttpNotFound();
+            }
+            //Sjekker om bruker har tilgang på objektet han forespør.
+            if (User.Identity.Name != blog.OwnerOfBlog.UserName)
+            {
+                return View("NoAccess");
             }
             return View(blog);
         }

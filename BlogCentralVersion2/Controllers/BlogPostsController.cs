@@ -79,11 +79,12 @@ namespace BlogCentralVersion2.Controllers
 
             var user = db.Users.Find(User.Identity.GetUserId());
             blogPost.OwnerOfBlogPost = user;
-
+            var username = blogPost.OwnerOfBlogPost.CommentUserName;//Henter ut brukernavnet til brukeren.
             if (ModelState.IsValid)
             {
                 
                 Blog blog = db.Blogs.Find(BloggId);
+                blogPost.BlogPostAuthor = username;//Setter forfatter av innlegg automatisk.
                 blogPost.DateCreated = DateTime.Now;
                 blogPost.Blog = blog;
                 db.BlogPosts.Add(blogPost);
@@ -108,6 +109,11 @@ namespace BlogCentralVersion2.Controllers
             if (blogPost == null)
             {
                 return HttpNotFound();
+            }
+            //Sjekker om bruker har tilgang på objektet han forespør.
+            if (User.Identity.Name != blogPost.OwnerOfBlogPost.UserName)
+            {
+                return View("NoAccess");
             }
             ViewBag.BlogId = new SelectList(db.Blogs, "BlogId", "BlogTitle", blogPost.Blog.BlogId);
             return View(blogPost);
@@ -144,6 +150,11 @@ namespace BlogCentralVersion2.Controllers
             {
                 return HttpNotFound();
             }
+            //Sjekker om bruker har tilgang på objektet han forespør.
+            if (User.Identity.Name != blogPost.OwnerOfBlogPost.UserName)
+            {
+                return View("NoAccess");
+            }
             return View(blogPost);
         }
 
@@ -177,11 +188,13 @@ namespace BlogCentralVersion2.Controllers
             ViewBag.BlogPostId = BlogPostId;
             var user = db.Users.Find(User.Identity.GetUserId());
             comment.OwnerOfComment = user;
+            var username = user.CommentUserName;//Henter ut brukernavnet til brukeren.
 
             if (ModelState.IsValid)
             {
 
                 Blog blog = db.Blogs.Find(BloggId);
+                comment.CommentName = username;
                 comment.Datecreated = DateTime.Now;
                 BlogPost blogPost = db.BlogPosts.Find(BlogPostId);
                 comment.BlogPost = blogPost;
@@ -198,6 +211,8 @@ namespace BlogCentralVersion2.Controllers
         [Authorize]
         public ActionResult DeleteComment(int BloggId, int BlogPostId, int CommentId)
         {
+            Blog blog = db.Blogs.Find(BloggId);
+            ViewBag.userName = blog.OwnerOfBlog.UserName;//Sender med brukernavn for å sjekke om bruker er eier for et objekt
             ViewBag.BloggId = BloggId;
             ViewBag.BlogPostId = BlogPostId;
             repo.DeleteComment(CommentId);

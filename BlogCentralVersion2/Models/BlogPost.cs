@@ -8,11 +8,14 @@ namespace BlogCentralVersion2.Models
 {
     public class BlogPost
     {
+       
         public int BlogPostId { get; set; }
+        [Required]
         [Display(Name = "Tittel")]
         public String BlogPostTitle { get; set; }
         [Display(Name = "Forfatter")]
         public String BlogPostAuthor { get; set; }
+        [Required]
         [Display(Name = "Innlegg")]
         [DataType(DataType.MultilineText)]
         public String BlogPostPost { get; set; }

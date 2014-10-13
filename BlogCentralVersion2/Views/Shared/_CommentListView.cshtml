@@ -30,7 +30,12 @@
             @Html.DisplayFor(modelItem => item.Datecreated)
         </td>
         <td>
-            @Html.ActionLink("Slett kommentar", "DeleteComment", new { Commentid = item.CommentId, BlogPostId = BlogPostId, BloggId = BloggId })
+            @*Sjekker om innlogget bruker er eier av blogginnlegg for å få mulighet til å slette kommentarer*@
+            @if(item.BlogPost.OwnerOfBlogPost.UserName == User.Identity.Name)
+            {
+                @Html.ActionLink("Slett kommentar", "DeleteComment", new { Commentid = item.CommentId, BlogPostId = BlogPostId, BloggId = BloggId })
+            }
+            
         </td>
     </tr>
 }
