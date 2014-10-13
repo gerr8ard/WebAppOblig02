@@ -36,7 +36,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.BlogTitle, "Index", "BlogPosts", new { BloggId = item.BlogId }, null)
+                @Html.ActionLink(item.BlogTitle, "Index", "BlogPosts", new { BlogId = item.BlogId }, null)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.BlogOwner)

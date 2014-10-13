@@ -31,39 +31,39 @@ namespace BlogCentralVersion2.Models
         }
 
         /// <summary>
-        /// Henter ut alle innlegg i en blogg vha en BloggId.
+        /// Henter ut alle innlegg i en blogg vha en BlogId.
         /// </summary>
-        /// <param name="BloggId"></param>
-        /// <returns>En oversikt over alle innlegg tilknyttet en gitt blogg vha BloggId</returns>
-        public ICollection<BlogPost> getAllBlogPosts(int? BloggId)
+        /// <param name="BlogId"></param>
+        /// <returns>En oversikt over alle innlegg tilknyttet en gitt blogg vha BlogId</returns>
+        public ICollection<BlogPost> getAllBlogPosts(int? BlogId)
         {
             return db.BlogPosts
-                .Where(x => x.Blog.BlogId == BloggId)
+                .Where(x => x.Blog.BlogId == BlogId)
                 .OrderByDescending(x => x.BlogPostId)
                 .ToList<BlogPost>();
         }
         
         /// <summary>
-        /// Henter ut en gitt blogg vha BloggId. Brukes i forbindelse med testing.
+        /// Henter ut en gitt blogg vha BlogId. Brukes i forbindelse med testing.
         /// </summary>
-        /// <param name="BloggId"></param>
+        /// <param name="BlogId"></param>
         /// <returns></returns>
-        public Blog getBlog(int? BloggId)
+        public Blog getBlog(int? BlogId)
         {
-            var blog = db.Blogs.Find(BloggId);
+            var blog = db.Blogs.Find(BlogId);
             return blog;
         }
 
         /// <summary>
-        /// Henter ut et gitt innlegg vha BloggId. Brukes i forbindelse med testing.
+        /// Henter ut et gitt innlegg vha BlogId. Brukes i forbindelse med testing.
         /// </summary>
-        /// <param name="BloggId"></param>
+        /// <param name="BlogId"></param>
         /// <returns></returns>
-        public BlogPost getBlogpost(int? BloggId)
+        public BlogPost getBlogpost(int? BlogId)
         {
             return db.BlogPosts
                 .Include("isOpen")
-                .Where(x => x.BlogPostId == BloggId)
+                .Where(x => x.BlogPostId == BlogId)
                 .FirstOrDefault();
         }
         /// <summary>
@@ -84,18 +84,36 @@ namespace BlogCentralVersion2.Models
             return collection;
         }
 
-        public IQueryable<Object> GetAllBlogPostsAjax(int BloggId)
+        public IQueryable<Object> GetAllBlogPostsAjax(int BlogId)
         {
             var blogPosts = db.BlogPosts.Include("ApplicationUser")
-                .Where(x => x.Blog.BlogId == BloggId);
+                .Where(x => x.Blog.BlogId == BlogId);
 
             var collection = blogPosts.Select(x => new
             {
-                id = x.BlogPostId,
+                blogId = x.Blog.BlogId,
+                blogPostId = x.BlogPostId,
                 title = x.BlogPostTitle,
                 blogpost = x.BlogPostPost,
                 created = x.DateCreated,
                 user = x.OwnerOfBlogPost.UserName
+            });
+            return collection;
+        }
+
+        public IQueryable<Object> GetCommentsAjax(int BlogId, int BlogPostId)
+        {
+            var comments = db.Comments.Include("ApplicationUser")
+                .Where(x => x.BlogPost.BlogPostId == BlogPostId);
+
+            var collection = comments.Select(x => new
+            {
+                blogId = x.BlogPost.Blog.BlogId,
+                blogPostId = x.BlogPost.BlogPostId,
+                comment = x.CommentPost,
+                commentUser = x.CommentName,
+                created = x.Datecreated,
+                user = x.OwnerOfComment.UserName
             });
             return collection;
         }

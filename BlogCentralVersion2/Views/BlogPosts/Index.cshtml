@@ -11,7 +11,7 @@
     @*Sjekker om bruker er eier av bloggen og dersom det stemmer vil knappen for å legge inn nytt innlegg dukke opp.*@
     @if (ViewBag.userName == User.Identity.Name)
     {
-        @Html.ActionLink("Lag nytt innlegg", "Create", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Lag nytt innlegg", "Create", new { BlogId = ViewBag.BlogId }, new { @class = "btn btn-success" })
     }
 
 </p>
@@ -37,7 +37,7 @@
     {
         <tr>
             <td>
-                @Html.ActionLink(item.BlogPostTitle, "Details", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)
+                @Html.ActionLink(item.BlogPostTitle, "Details", new { BlogId = ViewBag.BlogId, BlogPostId = item.BlogPostId }, null)
 
             </td>
             <td>
@@ -54,9 +54,9 @@
                 @*Sjekker om bruker er eier av objektet for å vise ekstra editeringsmuligheter*@
                 @if (item.OwnerOfBlogPost.UserName == User.Identity.Name)
                 {
-                    @Html.ActionLink("Rediger", "Edit", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)@:|
+                    @Html.ActionLink("Rediger", "Edit", new { BlogId = ViewBag.BlogId, BlogPostId = item.BlogPostId }, null)@:|
 
-                    @Html.ActionLink("Slett", "Delete", new { BloggId = ViewBag.BloggId, BlogPostId = item.BlogPostId }, null)
+                    @Html.ActionLink("Slett", "Delete", new { BlogId = ViewBag.BlogId, BlogPostId = item.BlogPostId }, null)
                 }
 
             </td>

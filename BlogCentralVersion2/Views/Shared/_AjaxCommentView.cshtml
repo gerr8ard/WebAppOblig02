@@ -1,0 +1,132 @@
+﻿@model BlogCentralVersion2.Models.Comment
+
+@{
+    int BlogPostId = Convert.ToInt32(ViewData["BlogPostId"]);
+    int BlogId = Convert.ToInt32(ViewData["BlogId"]);
+}
+
+@using (Html.BeginForm("CreateComment", "BlogPosts", new { BlogId = BlogId, BlogPostId = BlogPostId }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.CommentName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CommentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CommentName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CommentPost, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CommentPost, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CommentPost, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group hidden">
+            @Html.LabelFor(model => model.Datecreated, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Datecreated, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Datecreated, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lagre kommentar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+</div>
+<h4>Kommentarer</h4>
+<hr />
+<ul id="kommentar-liste"></ul>
+<script>
+    $(document).ready(function () {
+        var blogId= @Html.Raw(BlogId);
+        var blogPostId = @Html.Raw(BlogPostId);
+
+        getComments();
+
+
+        // Lagrer ny kommentar
+        $("#kommentar-form form").bind('submit',function(e){
+            e.preventDefault();
+            var data = $("#kommentar-form form").serialize();
+            data += "&username=@Html.Raw(User.Identity.Name)";
+
+            // Sender inn skjema med kommentar
+            $.ajax({
+                type: 'POST',
+                url: "api/BlogAPI/Comments/" + @Html.Raw(ViewBag.BlogPostId),
+                data: data,
+                datatype: 'json'
+            })
+            .done(function (jsonResult) {
+                $("textarea#tekst").val("");
+                getComments();
+            });
+        });
+
+        // Henter opp liste med kommentarer
+        function getComments(){
+            $("#kommentar-liste").empty();
+            $.ajax({
+                type: 'GET',
+                url: '/api/BlogAPI/Comments/' + @Html.Raw(ViewBag.innleggsId),
+                datatype: 'json'
+            })
+            .done(function (jsonResult) {
+                $.each(jsonResult, function (index, element) {
+                    var loggedInUser = "@Html.Raw(User.Identity.Name)";
+                    var dateCreated = new Date(element.created);
+                    var dateCreatedString = dateCreated.getDate() + "-" + dateCreated.getMonth() + "-" + dateCreated.getFullYear() + " " + dateCreated.getHours() + ":" + dateCreated.getMinutes();    
+
+                    var deleteOption = "";
+
+                    if(element.ownerOfBlogPost == loggedInUser ||  element.user == loggedInUser){
+                        deleteOption = "<a href='/BlogPosts/D/Delete/" + BlogPostId + "?kommentarId=" + element.id + "'>Slett" + "</a>"
+                    }
+
+                    $("#kommentar-liste").append($("<li>").html("<div class='row'>"+
+                                                            "<div class='col-md-10 col-md-offset-2'>" +
+                                                                "<p>" +
+                                                                    "<span class='updated'>" +
+                                                                        "Updated: " + dateUpdatedString +
+                                                                    "</span>" +
+                                                                    "<span class='details'>" +
+                                                                        element.user +
+                                                                    "</span>" +
+                                                                "</p>" +
+                                                             "</div>" +
+                                                             "<div class='col-md-10 col-md-offset-2'>" +
+                                                                "<p>" +
+                                                                    element.kommentar +
+                                                                "</p>" +
+                                                                "<p>" +
+                                                                    deleteOption +
+                                                                "</p>" +
+                                                                "<hr />" +
+                                                            "</div>" +
+                                                        "</div>"
+                    ));
+                });
+            })
+        .fail(function (msg) {
+            alert("Data save failed: " + msg);
+        });
+        }
+
+
+    });
+
+</script>

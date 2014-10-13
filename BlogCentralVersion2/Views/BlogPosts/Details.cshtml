@@ -42,15 +42,19 @@
     Sjekker også om innlegget er åpen for kommentering.*@
     @if (ViewBag.isLoggedIn)
     {
-        @Html.ActionLink("Rediger innlegg", "Edit", new { BlogPostid = Model.BlogPostId, BloggId = Model.Blog.BlogId }, new { @class = "btn btn-success" })
-        @Html.ActionLink("Tilbake til innlegg", "Index", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-primary" })
+        @Html.ActionLink("Rediger innlegg", "Edit", new { BlogPostid = Model.BlogPostId, BlogId = Model.Blog.BlogId }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Tilbake til innlegg", "Index", new { BlogId = ViewBag.BlogId }, new { @class = "btn btn-primary" })
         <hr />
 
         if (Model.isOpen)
         {<p>Kommentarer på innlegget @Model.BlogPostTitle</p>
-        @Html.Partial("_CommentListView", Model.Comments, new ViewDataDictionary { { "BlogPostId", ViewBag.BlogPostId }, { "BloggId", ViewBag.BloggId } })
-        <p>Legg igjen en kommentar</p>
-        @Html.Partial("_Comments", new BlogCentralVersion2.Models.Comment(), new ViewDataDictionary { { "BlogPostId", ViewBag.BlogPostId }, { "BloggId", ViewBag.BloggId } })
+       @* @Html.Partial("_AjaxCommentView", new ViewDataDictionary { { "BlogPostId", ViewBag.BlogPostId }, { "BlogId", ViewBag.BlogId } })*@
+
+
+    @Html.Partial("_CommentListView", Model.Comments, new ViewDataDictionary { { "BlogPostId", ViewBag.BlogPostId }, { "BlogId", ViewBag.BlogId } })
+    <p>Legg igjen en kommentar</p>
+    @Html.Partial("_Comments", new BlogCentralVersion2.Models.Comment(), new ViewDataDictionary { { "BlogPostId", ViewBag.BlogPostId }, { "BlogId", ViewBag.BlogId } })
+    
         }
     }
 

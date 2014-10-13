@@ -44,7 +44,7 @@
 
              $("#blogg-table")
                         .append($("<tr>")
-                        .append($("<td>").html("<a href='/BlogPosts?BloggId=" + element.id + "'>" + element.title + "</a>"))
+                        .append($("<td>").html("<a href='/BlogPosts?BlogId=" + element.id + "'>" + element.title + "</a>"))
                         .append($("<td>").text(element.user))
                         .append($("<td>").html(dateCreatedString))
                         .append($("<td>").html(detailsOption + editOption + deleteOption))

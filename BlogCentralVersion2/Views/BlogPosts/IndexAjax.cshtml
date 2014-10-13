@@ -8,7 +8,7 @@
     @*Sjekker om bruker er eier av bloggen og dersom det stemmer vil knappen for å legge inn nytt innlegg dukke opp.*@
     @if (ViewBag.userName == User.Identity.Name)
     {
-        @Html.ActionLink("Lag nytt innlegg", "Create", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-success" })
+        @Html.ActionLink("Lag nytt innlegg", "Create", new { BlogId = ViewBag.BlogId }, new { @class = "btn btn-success" })
     }
 
 </p>
@@ -28,7 +28,7 @@
         var loggedInUser = "@Html.Raw(User.Identity.Name)";
         $.ajax({
             type: 'GET',
-            url: '/api/BlogAPI/BlogPost',
+            url: '/api/BlogAPI/BlogPost/' + @Html.Raw(ViewBag.BlogId),
             datatype: 'json'
         })
      .done(function (jsonResult) {
@@ -46,7 +46,7 @@
 
              $("#blogg-table")
                         .append($("<tr>")
-                        .append($("<td>").html("<a href='/BlogPosts?BloggId=" + element.id + "'>" + element.title + "</a>"))
+                        .append($("<td>").html("<a href='/BlogPosts/Details?BlogId=" + element.blogId + "&BlogPostId=" + element.blogPostId + "'>" + element.title + "</a>"))
                         .append($("<td>").text(element.blogpost))
                         .append($("<td>").text(element.user))
                         .append($("<td>").html(dateCreatedString))

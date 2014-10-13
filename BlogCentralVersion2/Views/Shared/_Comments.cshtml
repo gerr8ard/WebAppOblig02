@@ -2,10 +2,10 @@
 
 @{
     int BlogPostId = Convert.ToInt32(ViewData["BlogPostId"]);
-    int BloggId = Convert.ToInt32(ViewData["BloggId"]);
+    int BlogId = Convert.ToInt32(ViewData["BlogId"]);
 }
 
-@using (Html.BeginForm("CreateComment", "BlogPosts", new { BloggId = BloggId, BlogPostId = BlogPostId })) 
+@using (Html.BeginForm("CreateComment", "BlogPosts", new { BlogId = BlogId, BlogPostId = BlogPostId })) 
 {
     @Html.AntiForgeryToken()
     

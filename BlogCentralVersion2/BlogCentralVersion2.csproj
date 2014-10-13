@@ -330,6 +330,7 @@
     <Content Include="Views\Shared\NoAccess.cshtml" />
     <Content Include="Views\Blogs\IndexAjax.cshtml" />
     <Content Include="Views\BlogPosts\IndexAjax.cshtml" />
+    <Content Include="Views\Shared\_AjaxCommentView.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

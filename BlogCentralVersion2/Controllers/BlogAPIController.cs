@@ -33,18 +33,21 @@ namespace BlogCentralVersion2.Controllers
  
             return blogs;
         }
+        /*
         // GET: api/BlogAPI
-        public IEnumerable<Blog> GetComment()
+        [Route("api/BlogAPI/Comments/{BlogId:int}/{BlogPostId:int}")]
+        public IQueryable<Object> GetComments(int BlogId, int BlogPostId)
         {
-            return repo.getAllBlogs();
-        }
+            var comments = repo.GetCommentsAjax(BlogId, BlogPostId);
+            return comments;
+        }*/
 
         // GET: api/BlogAPI
-        [Route("api/BlogAPI/BlogPost")]
-        public IQueryable<Object> GetBlogPosts(int BloggId)
+        [Route("api/BlogAPI/BlogPost/{BlogId:int}")]
+        public IQueryable<Object> GetBlogPosts(int BlogId)
         {
-            var blog = db.Blogs.Find(BloggId);
-            var blogPosts = repo.GetAllBlogPostsAjax(BloggId);
+            var blog = db.Blogs.Find(BlogId);
+            var blogPosts = repo.GetAllBlogPostsAjax(BlogId);
             return blogPosts;
         }
 

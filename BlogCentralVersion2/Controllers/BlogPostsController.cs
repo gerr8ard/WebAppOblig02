@@ -30,24 +30,24 @@ namespace BlogCentralVersion2.Controllers
             
         }
         // GET: BlogPosts
-        public ActionResult Index(int BloggId)
+        public ActionResult Index(int BlogId)
         {
             ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
             //ViewBag.user = HttpContext.User.Identity.Name;
 
-            var blog = db.Blogs.Find(BloggId);
+            var blog = db.Blogs.Find(BlogId);
             ViewBag.userName = blog.OwnerOfBlog.UserName;//Sender med brukernavn for å sjekke om bruker er eier for et objekt
-            //ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
 
-            //var blogPost = repo.getAllBlogPosts(BloggId);
+            //var blogPost = repo.getAllBlogPosts(BlogId);
             return View("IndexAjax");
         }
 
         // GET: BlogPosts/Details/5
-        public ActionResult Details(int? BlogPostId, int BloggId)
+        public ActionResult Details(int? BlogPostId, int BlogId)
         {
             ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
-            ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
             ViewBag.BlogPostId = BlogPostId;
             if (BlogPostId == null)
             {
@@ -63,9 +63,9 @@ namespace BlogCentralVersion2.Controllers
 
         [Authorize]
         // GET: BlogPosts/Create
-        public ActionResult Create(int BloggId)
+        public ActionResult Create(int BlogId)
         {
-            ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
             return View();
         }
 
@@ -74,7 +74,7 @@ namespace BlogCentralVersion2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BlogPostId,BlogPostTitle,BlogPostAuthor,BlogPostPost,DateCreated, isOpen")] BlogPost blogPost, int BloggId)
+        public ActionResult Create([Bind(Include = "BlogPostId,BlogPostTitle,BlogPostAuthor,BlogPostPost,DateCreated, isOpen")] BlogPost blogPost, int BlogId)
         {
 
             var user = db.Users.Find(User.Identity.GetUserId());
@@ -83,13 +83,13 @@ namespace BlogCentralVersion2.Controllers
             if (ModelState.IsValid)
             {
                 
-                Blog blog = db.Blogs.Find(BloggId);
+                Blog blog = db.Blogs.Find(BlogId);
                 blogPost.BlogPostAuthor = username;//Setter forfatter av innlegg automatisk.
                 blogPost.DateCreated = DateTime.Now;
                 blogPost.Blog = blog;
                 db.BlogPosts.Add(blogPost);
                 db.SaveChanges();
-                return RedirectToAction("Index", new {BloggId = BloggId});
+                return RedirectToAction("Index", new {BlogId = BlogId});
             }
 
            
@@ -98,9 +98,9 @@ namespace BlogCentralVersion2.Controllers
 
         [Authorize]
         // GET: BlogPosts/Edit/5
-        public ActionResult Edit(int? BlogPostId, int BloggId)
+        public ActionResult Edit(int? BlogPostId, int BlogId)
         {
-            ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
             if (BlogPostId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -124,13 +124,13 @@ namespace BlogCentralVersion2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "BlogPostId,BlogPostTitle,BlogPostAuthor,BlogPostPost,DateCreated,isOpen")] BlogPost blogPost, int BloggId)
+        public ActionResult Edit([Bind(Include = "BlogPostId,BlogPostTitle,BlogPostAuthor,BlogPostPost,DateCreated,isOpen")] BlogPost blogPost, int BlogId)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(blogPost).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { BloggId = BloggId });
+                return RedirectToAction("Index", new { BlogId = BlogId });
             }
             ViewBag.BlogId = new SelectList(db.Blogs, "BlogId", "BlogTitle", blogPost.Blog.BlogId);
             return View(blogPost);
@@ -138,9 +138,9 @@ namespace BlogCentralVersion2.Controllers
 
         [Authorize]
         // GET: BlogPosts/Delete/5
-        public ActionResult Delete(int? BlogPostId, int BloggId)
+        public ActionResult Delete(int? BlogPostId, int BlogId)
         {
-            ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
             if (BlogPostId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -161,19 +161,19 @@ namespace BlogCentralVersion2.Controllers
         // POST: BlogPosts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int BlogPostId, int BloggId)
+        public ActionResult DeleteConfirmed(int BlogPostId, int BlogId)
         {
             BlogPost blogPost = db.BlogPosts.Find(BlogPostId);
             db.BlogPosts.Remove(blogPost);
             db.SaveChanges();
-            return RedirectToAction("Index", new { BloggId = BloggId });
+            return RedirectToAction("Index", new { BlogId = BlogId });
         }
 
         [Authorize]
-        public ActionResult Comment(int BlogPostId, int BloggId)
+        public ActionResult Comment(int BlogPostId, int BlogId)
         {
             ViewBag.BlogPostId = BlogPostId;
-            ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
             var comment = db.Comments.Where(x => x.BlogPost.BlogPostId == BlogPostId).ToList<Comment>();
             return View(comment);
         }
@@ -181,10 +181,10 @@ namespace BlogCentralVersion2.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateComment([Bind(Include = "CommentId,CommentName,CommentPost,DateCreated")] Comment comment, int BloggId, int BlogPostId)
+        public ActionResult CreateComment([Bind(Include = "CommentId,CommentName,CommentPost,DateCreated")] Comment comment, int BlogId, int BlogPostId)
         {
 
-            ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
             ViewBag.BlogPostId = BlogPostId;
             var user = db.Users.Find(User.Identity.GetUserId());
             comment.OwnerOfComment = user;
@@ -193,14 +193,14 @@ namespace BlogCentralVersion2.Controllers
             if (ModelState.IsValid)
             {
 
-                Blog blog = db.Blogs.Find(BloggId);
+                Blog blog = db.Blogs.Find(BlogId);
                 comment.CommentName = username;
                 comment.Datecreated = DateTime.Now;
                 BlogPost blogPost = db.BlogPosts.Find(BlogPostId);
                 comment.BlogPost = blogPost;
                 db.Comments.Add(comment);
                 db.SaveChanges();
-                return RedirectToAction("Details", "BlogPosts" , new { BloggId = BloggId, BlogPostId = BlogPostId });
+                return RedirectToAction("Details", "BlogPosts" , new { BlogId = BlogId, BlogPostId = BlogPostId });
             }
 
 
@@ -209,14 +209,14 @@ namespace BlogCentralVersion2.Controllers
 
 
         [Authorize]
-        public ActionResult DeleteComment(int BloggId, int BlogPostId, int CommentId)
+        public ActionResult DeleteComment(int BlogId, int BlogPostId, int CommentId)
         {
-            Blog blog = db.Blogs.Find(BloggId);
+            Blog blog = db.Blogs.Find(BlogId);
             ViewBag.userName = blog.OwnerOfBlog.UserName;//Sender med brukernavn for å sjekke om bruker er eier for et objekt
-            ViewBag.BloggId = BloggId;
+            ViewBag.BlogId = BlogId;
             ViewBag.BlogPostId = BlogPostId;
             repo.DeleteComment(CommentId);
-            return RedirectToAction("Details",  "BlogPosts" , new { BloggId = BloggId, BlogPostId = BlogPostId });
+            return RedirectToAction("Details",  "BlogPosts" , new { BlogId = BlogId, BlogPostId = BlogPostId });
         }
 
 

@@ -10,10 +10,10 @@ namespace BlogCentralVersion2.Models
 
         void DeleteComment(int? id);
         IEnumerable<Blog> getAllBlogs();
-        ICollection<BlogPost> getAllBlogPosts(int? BloggId);
-        Blog getBlog(int? BloggId);
-        BlogPost getBlogpost(int? BloggId);
+        ICollection<BlogPost> getAllBlogPosts(int? BlogId);
+        Blog getBlog(int? BlogId);
+        BlogPost getBlogpost(int? BlogId);
         IQueryable<Object> GetAllBlogsAjax();
-        IQueryable<Object> GetAllBlogPostsAjax(int BloggId);
+        IQueryable<Object> GetAllBlogPostsAjax(int BlogId);
     }
 }
