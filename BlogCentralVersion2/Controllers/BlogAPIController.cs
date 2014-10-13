@@ -26,11 +26,13 @@ namespace BlogCentralVersion2.Controllers
         }
 
         // GET: api/BlogAPI
-        public IEnumerable<Blog> GetBlogPosts()
+        [Route("api/BlogAPI")]
+        public IQueryable<Object> GetBlogs()
         {
-            return repo.getAllBlogs();
+            var blogs = repo.GetAllBlogsAjax();
+ 
+            return blogs;
         }
-
         // GET: api/BlogAPI
         public IEnumerable<Blog> GetComment()
         {
@@ -38,9 +40,12 @@ namespace BlogCentralVersion2.Controllers
         }
 
         // GET: api/BlogAPI
-        public IEnumerable<Blog> GetBlogs()
+        [Route("api/BlogAPI/BlogPost")]
+        public IQueryable<Object> GetBlogPosts(int BloggId)
         {
-            return repo.getAllBlogs();
+            var blog = db.Blogs.Find(BloggId);
+            var blogPosts = repo.GetAllBlogPostsAjax(BloggId);
+            return blogPosts;
         }
 
         // GET: api/BlogAPI/5

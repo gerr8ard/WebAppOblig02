@@ -37,10 +37,10 @@ namespace BlogCentralVersion2.Controllers
 
             var blog = db.Blogs.Find(BloggId);
             ViewBag.userName = blog.OwnerOfBlog.UserName;//Sender med brukernavn for å sjekke om bruker er eier for et objekt
-            ViewBag.BloggId = BloggId;
+            //ViewBag.BloggId = BloggId;
 
-            var blogPost = repo.getAllBlogPosts(BloggId);
-            return View(blogPost);
+            //var blogPost = repo.getAllBlogPosts(BloggId);
+            return View("IndexAjax");
         }
 
         // GET: BlogPosts/Details/5

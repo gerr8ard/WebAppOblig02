@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Oversikt innlegg";
+}
+
+<h2>Oversikt over innlegg</h2>
+<p>
+
+    @*Sjekker om bruker er eier av bloggen og dersom det stemmer vil knappen for å legge inn nytt innlegg dukke opp.*@
+    @if (ViewBag.userName == User.Identity.Name)
+    {
+        @Html.ActionLink("Lag nytt innlegg", "Create", new { BloggId = ViewBag.BloggId }, new { @class = "btn btn-success" })
+    }
+
+</p>
+
+<table id="blogg-table" class="table">
+    <tr>
+        <th>Tittel</th>
+        <th>Innlegg</th>
+        <th>Forfatter</th>
+        <th>Opprettet</th>
+        <th></th>
+    </tr>
+</table>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var loggedInUser = "@Html.Raw(User.Identity.Name)";
+        $.ajax({
+            type: 'GET',
+            url: '/api/BlogAPI/BlogPost',
+            datatype: 'json'
+        })
+     .done(function (jsonResult) {
+         $.each(jsonResult, function (index, element) {
+             var dateCreated = new Date(element.created);
+             var dateCreatedString = dateCreated.getDate() + "-" + dateCreated.getMonth() + "-" + dateCreated.getFullYear() + " " + dateCreated.getHours() + ":" + dateCreated.getMinutes();
+             var deleteOption = "";
+             var editOption = "";             
+
+             if (loggedInUser == element.user) {
+                 deleteOption = "<a href='/blogposts/Delete/" + element.id + "'>Slett" + "</a>"
+                 editOption = "<a href='/blogposts/Edit/" + element.id + "'>Rediger" + "</a> | "                 
+             }
+
+
+             $("#blogg-table")
+                        .append($("<tr>")
+                        .append($("<td>").html("<a href='/BlogPosts?BloggId=" + element.id + "'>" + element.title + "</a>"))
+                        .append($("<td>").text(element.blogpost))
+                        .append($("<td>").text(element.user))
+                        .append($("<td>").html(dateCreatedString))
+                        .append($("<td>").html(editOption + deleteOption))
+         )
+         });
+     })
+            .fail(function (msg) {
+                alert("Noe utenkelig har skjedd: " + msg);
+            });
+    });
+</script>

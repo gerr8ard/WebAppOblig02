@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Oversikt blogger";
+}
+
+<h2>Oversikt over alle bloggene</h2>
+<p>
+    @if (ViewBag.IsLoggedIn)
+    {
+        @Html.ActionLink("Opprett ny Blogg", "Create", null, new { @class = "btn btn-success" })
+    }
+</p>
+
+<table id="blogg-table" class="table">
+    <tr>
+        <th>Tittel</th>
+        <th>Bruker</th>
+        <th>Opprettet</th>
+        <th></th>
+    </tr>
+</table>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var loggedInUser = "@Html.Raw(User.Identity.Name)";
+        $.ajax({
+            type: 'GET',
+            url: '/api/BlogAPI',
+            datatype: 'json'
+        })
+     .done(function (jsonResult) {
+         $.each(jsonResult, function (index, element) {
+             var dateCreated = new Date(element.created);
+             var dateCreatedString = dateCreated.getDate() + "-" + dateCreated.getMonth() + "-" + dateCreated.getFullYear() + " " + dateCreated.getHours() + ":" + dateCreated.getMinutes();             
+             var deleteOption = "";
+             var editOption = "";
+             var detailsOption = "";
+
+             if (loggedInUser == element.user) {
+                 deleteOption = "<a href='/blogs/Delete/" + element.id + "'>Slett" + "</a>"
+                 editOption = "<a href='/blogs/Edit/" + element.id + "'>Rediger" + "</a> | "
+                 detailsOption = "<a href='/blogs/Details/" + element.id + "'>Detaljer" + "</a> | "
+             }
+
+
+             $("#blogg-table")
+                        .append($("<tr>")
+                        .append($("<td>").html("<a href='/BlogPosts?BloggId=" + element.id + "'>" + element.title + "</a>"))
+                        .append($("<td>").text(element.user))
+                        .append($("<td>").html(dateCreatedString))
+                        .append($("<td>").html(detailsOption + editOption + deleteOption))
+         )
+         });
+     })
+            .fail(function (msg) {
+                alert("Noe utenkelig har skjedd: " + msg);
+            });
+    });
+</script>

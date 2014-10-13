@@ -13,5 +13,7 @@ namespace BlogCentralVersion2.Models
         ICollection<BlogPost> getAllBlogPosts(int? BloggId);
         Blog getBlog(int? BloggId);
         BlogPost getBlogpost(int? BloggId);
+        IQueryable<Object> GetAllBlogsAjax();
+        IQueryable<Object> GetAllBlogPostsAjax(int BloggId);
     }
 }

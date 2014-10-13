@@ -34,8 +34,9 @@ namespace BlogCentralVersion2.Controllers
         public ActionResult Index()
         {
             ViewBag.isLoggedIn = HttpContext.User.Identity.IsAuthenticated;//Sender med info til view'et om dersom bruker er innlogget
-            var blogs = repo.getAllBlogs();
-            return View(blogs);
+            //var blogs = repo.getAllBlogs();
+            return View("IndexAjax");
+            //return View(blogs);
         }
 
         // GET: Blogs/Details/5

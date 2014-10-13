@@ -66,5 +66,38 @@ namespace BlogCentralVersion2.Models
                 .Where(x => x.BlogPostId == BloggId)
                 .FirstOrDefault();
         }
+        /// <summary>
+        /// Henter ut alle blogger.
+        /// </summary>
+        /// <returns>Oversikt over alle blogger</returns>
+        public IQueryable<Object> GetAllBlogsAjax()
+        {
+            var blogg = db.Blogs.Include("ApplicationUser");
+
+            var collection = blogg.Select(x => new
+            {
+                id = x.BlogId,
+                title = x.BlogTitle,
+                created = x.DateCreated,
+                user = x.OwnerOfBlog.UserName
+            });
+            return collection;
+        }
+
+        public IQueryable<Object> GetAllBlogPostsAjax(int BloggId)
+        {
+            var blogPosts = db.BlogPosts.Include("ApplicationUser")
+                .Where(x => x.Blog.BlogId == BloggId);
+
+            var collection = blogPosts.Select(x => new
+            {
+                id = x.BlogPostId,
+                title = x.BlogPostTitle,
+                blogpost = x.BlogPostPost,
+                created = x.DateCreated,
+                user = x.OwnerOfBlogPost.UserName
+            });
+            return collection;
+        }
     }
 }
